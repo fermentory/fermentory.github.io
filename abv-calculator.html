@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABV Calculator — alcohol from OG and FG | Fermentory</title>
+<meta name="description" content="Free homebrew ABV calculator. Enter original and final gravity to get alcohol by volume and apparent attenuation, with typical OG/FG ranges by style and honest notes on accuracy.">
+<link rel="canonical" href="https://nautahakk.github.io/fermentory.github.io/abv-calculator.html">
+<meta name="theme-color" content="#5A4030">
+<link rel="icon" href="./icon-128.png">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="ABV Calculator — alcohol from OG and FG">
+<meta property="og:description" content="OG and FG in, ABV and attenuation out. The standard homebrew formula, typical style ranges, and when to trust it.">
+<meta property="og:image" content="https://nautahakk.github.io/fermentory.github.io/icon-128.png">
+<meta property="og:url" content="https://nautahakk.github.io/fermentory.github.io/abv-calculator.html">
+<meta name="twitter:card" content="summary">
+
+<style>
+  :root{
+    --green:#5A4030; --green2:#75471F; --green3:#75471F;
+    --cream:#F1E7D4; --cream2:#FFFBF2; --ink:#2A2018; --muted:#6C5A47;
+    --line:#D6C4A6; --line2:#E8D9BF;
+    --maxw:760px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Arial,sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px;}
+  a{color:var(--green2);}
+  h1,h2,h3{color:var(--green); line-height:1.22;}
+  .topbar{border-bottom:1px solid var(--line); background:var(--cream2);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 22px; max-width:880px;}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--green); text-decoration:none; font-size:18px;}
+  .brand img{width:30px; height:30px; border-radius:7px;}
+  .topbar .cta-sm{
+    background:var(--green); color:#fff; text-decoration:none; font-weight:600;
+    padding:8px 14px; border-radius:8px; font-size:14px; white-space:nowrap;
+    transition:background .15s ease;
+  }
+  .topbar .cta-sm:hover{background:var(--green2);}
+  .crumb{font-size:13px; color:var(--muted); padding:18px 0 0;}
+  .crumb a{color:var(--green3); text-decoration:none;}
+  .crumb a:hover{text-decoration:underline;}
+  .hero{padding:20px 0 6px;}
+  .hero h1{font-size:clamp(27px,4.6vw,38px); margin:0 0 12px;}
+  .hero p.sub{font-size:clamp(16px,2.2vw,18px); color:var(--ink); margin:0;}
+  .quick{
+    background:#F6EBDD; border:1px solid #D9C29F; border-left:4px solid var(--green2);
+    border-radius:10px; padding:16px 18px; margin:24px 0;
+  }
+  .quick p{margin:0; font-size:15.5px;}
+  .quick b{color:var(--green);}
+  .tool{
+    background:#fff; border:1px solid var(--line); border-radius:14px;
+    box-shadow:0 1px 0 rgba(27,67,50,.04), 0 14px 34px -22px rgba(27,67,50,.35);
+    padding:24px; margin:26px 0;
+  }
+  .tool.hero-tool{border-top:4px solid var(--green2);}
+  .tool h2{font-size:19px; margin:0 0 4px;}
+  .tool .desc{color:var(--muted); font-size:14px; margin:0 0 16px;}
+  .field-row{display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end;}
+  .field{flex:1 1 130px; min-width:120px;}
+  .field label{display:block; font-size:13px; font-weight:600; color:var(--green); margin-bottom:5px;}
+  input,select{
+    width:100%; font:inherit; color:var(--ink); background:var(--cream2);
+    border:1px solid var(--line); border-radius:9px; padding:10px 12px;
+  }
+  input:focus,select:focus{
+    outline:none; border-color:var(--green3); box-shadow:0 0 0 3px rgba(181,121,58,.22); background:#fff;
+  }
+  .conv-out{
+    margin-top:16px; background:var(--cream2); border:1px dashed #D4BA93; border-radius:10px;
+    padding:14px 16px; font-variant-numeric:tabular-nums;
+  }
+  .conv-out .big{font-size:24px; font-weight:700; color:var(--green);}
+  .conv-out .small{display:block; color:var(--muted); font-size:13px; margin-top:2px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    background:var(--green); color:#fff; border:none; font-weight:600; font-size:15px;
+    padding:11px 20px; border-radius:9px; transition:background .15s ease; text-decoration:none;
+    margin-top:16px;
+  }
+  .btn:hover{background:var(--green2);}
+  .prose{margin:30px 0;}
+  .prose h2{font-size:23px; margin:34px 0 10px;}
+  .prose h3{font-size:17px; margin:24px 0 6px;}
+  .prose p{margin:0 0 14px;}
+  .prose ol,.prose ul{margin:0 0 16px; padding-left:22px;}
+  .prose li{margin-bottom:8px;}
+  .prose strong{color:var(--green);}
+  .ctable-wrap{overflow-x:auto; margin:18px 0 24px;}
+  table.ctable{width:100%; border-collapse:collapse; font-size:15px; min-width:340px;}
+  table.ctable th,table.ctable td{padding:10px 14px; text-align:left; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums;}
+  table.ctable th{background:var(--cream2); color:var(--green); font-size:13px; text-transform:uppercase; letter-spacing:.04em;}
+  table.ctable tr.hl td{background:#F6EBDD; font-weight:600;}
+  .band{
+    margin:44px 0; background:var(--green); color:#fff; border-radius:16px;
+    padding:34px 28px; text-align:center;
+  }
+  .band h2{color:#fff; font-size:23px; margin:0 0 10px;}
+  .band p{color:#F1E7D4; max-width:520px; margin:0 auto 22px; font-size:15.5px;}
+  .band .btn-store{
+    display:inline-flex; align-items:center; gap:9px; background:#fff; color:var(--green);
+    text-decoration:none; font-weight:700; font-size:16px; padding:13px 26px; border-radius:10px;
+    transition:background .15s ease;
+  }
+  .band .btn-store:hover{background:var(--cream);}
+  .band .free-note{display:block; margin-top:12px; font-size:13px; color:#EAD9BF;}
+  .faq{margin:44px 0;}
+  .faq h2{font-size:23px; margin-bottom:18px;}
+  details{background:#fff; border:1px solid var(--line); border-radius:10px; padding:4px 18px; margin-bottom:12px;}
+  details summary{
+    cursor:pointer; font-weight:600; color:var(--green); padding:13px 0; list-style:none;
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+"; font-size:22px; color:var(--green3); font-weight:400;}
+  details[open] summary::after{content:"–";}
+  details p{margin:0 0 14px; color:var(--ink);}
+  .related{margin:40px 0;}
+  .related h2{font-size:19px; margin-bottom:12px;}
+  .related a{display:block; padding:12px 16px; background:#fff; border:1px solid var(--line);
+    border-radius:9px; margin-bottom:9px; text-decoration:none; color:var(--green2); font-weight:600;}
+  .related a:hover{border-color:var(--green3); background:var(--cream2);}
+  footer{border-top:1px solid var(--line); margin-top:44px; padding:30px 0 50px; color:var(--muted); font-size:14px;}
+  footer .wrap{display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; justify-content:space-between; max-width:880px;}
+  footer a{color:var(--green2); text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+  footer .links{display:flex; flex-wrap:wrap; gap:18px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="./icon-128.png" alt="">Fermentory</a>
+    <a class="cta-sm" href="https://chromewebstore.google.com/detail/cgcilikjgbgbmlpknnmpejcjikmapmme" target="_blank" rel="noopener">Add to Chrome — free</a>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <div class="crumb"><a href="./">Fermentory</a> › Calculators › ABV</div>
+
+  <section class="hero">
+    <h1>ABV calculator</h1>
+    <p class="sub">Two hydrometer readings are all it takes: the gravity before fermentation and the gravity after. Enter them below and get your beer's alcohol by volume, plus how fully it fermented.</p>
+  </section>
+
+  <div class="quick">
+    <p><b>Quick answer:</b> ABV ≈ (OG − FG) × 131.25. A beer that starts at <b>1.050</b> and finishes at <b>1.010</b> is about <b>5.25% ABV</b>, with 80% apparent attenuation.</p>
+  </div>
+
+  <!-- Calculator -->
+  <div class="tool hero-tool">
+    <h2>OG &amp; FG → ABV</h2>
+    <p class="desc">Use specific gravity readings, e.g. 1.050. Take both at the same temperature your hydrometer is calibrated for (usually 20&nbsp;°C).</p>
+    <div class="field-row">
+      <div class="field">
+        <label for="a-og">Original gravity (OG)</label>
+        <input id="a-og" type="number" step="0.001" min="0.990" max="1.200" value="1.050" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="a-fg">Final gravity (FG)</label>
+        <input id="a-fg" type="number" step="0.001" min="0.980" max="1.100" value="1.010" inputmode="decimal">
+      </div>
+    </div>
+    <div class="conv-out">
+      <span class="big" id="a-out">5.25% ABV</span>
+      <span class="small" id="a-note">80% apparent attenuation · 40 gravity points fermented</span>
+    </div>
+    <a class="btn" href="./">More free brewing tools →</a>
+  </div>
+
+  <div class="prose">
+    <h2>How the calculation works</h2>
+    <p>A hydrometer measures density. Before fermentation your wort is dense with sugar; as yeast turns that sugar into alcohol and CO₂, the density falls. The drop between the two readings tracks how much sugar became alcohol, and the standard homebrew shortcut converts it directly:</p>
+    <p><strong>ABV = (OG − FG) × 131.25</strong></p>
+    <p>So 1.050 → 1.010 is 0.040 × 131.25 = 5.25%. The multiplier bakes in the density of alcohol and a couple of chemistry constants, and it's the same formula used by most brewing software — and by the Fermentory extension's built-in calculator.</p>
+
+    <h2>Typical gravities by style</h2>
+    <div class="ctable-wrap">
+      <table class="ctable">
+        <thead><tr><th>Style</th><th>OG</th><th>FG</th><th>ABV</th></tr></thead>
+        <tbody>
+          <tr><td>Session ale / mild</td><td>1.035–1.042</td><td>1.008–1.012</td><td>3.2–4.2%</td></tr>
+          <tr class="hl"><td>Pale ale</td><td>1.045–1.058</td><td>1.010–1.014</td><td>4.5–6%</td></tr>
+          <tr><td>IPA</td><td>1.056–1.070</td><td>1.010–1.015</td><td>5.8–7.5%</td></tr>
+          <tr><td>Lager / pilsner</td><td>1.044–1.052</td><td>1.008–1.013</td><td>4.4–5.5%</td></tr>
+          <tr><td>Dry cider</td><td>1.045–1.060</td><td>0.998–1.004</td><td>5.5–8%</td></tr>
+          <tr><td>Imperial stout</td><td>1.075–1.115</td><td>1.018–1.030</td><td>8–12%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>When the simple formula drifts</h2>
+    <p>Honest caveat: × 131.25 is an approximation that's excellent up to ordinary beer strengths and slowly loses accuracy as gravity climbs. Above roughly 8% ABV it starts under-reading by a few tenths of a percent. For big imperial beers, alternate high-gravity formulas exist, but for the vast majority of homebrew the standard formula is the right tool — every calculator drifts more than your hydrometer technique does anyway.</p>
+
+    <h2>Reading gravity properly</h2>
+    <ul>
+      <li><strong>Temperature matters.</strong> Hydrometers are calibrated at a set temperature, usually 20&nbsp;°C. A warm sample reads low; correct it or cool the sample.</li>
+      <li><strong>Degas the FG sample.</strong> Dissolved CO₂ lifts the float. A gentle stir until it stops fizzing gives a truer reading.</li>
+      <li><strong>Refractometer users:</strong> once fermentation starts, alcohol skews refractometer readings badly — the FG number needs a correction formula, or just use a hydrometer for the final reading.</li>
+    </ul>
+  </div>
+
+  <!-- Funnel band -->
+  <section class="band">
+    <h2>ABV, IBU and carbonation in one popup</h2>
+    <p>The free Fermentory browser extension carries these calculators with it, spots homebrew recipes on any page, and scales them to your batch size — no tab-switching mid-brew.</p>
+    <a class="btn-store" href="https://chromewebstore.google.com/detail/cgcilikjgbgbmlpknnmpejcjikmapmme" target="_blank" rel="noopener">＋ Add Fermentory to Chrome</a>
+    <span class="free-note">Free to install · optional one-time Pro upgrade</span>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>ABV FAQ</h2>
+
+    <details open>
+      <summary>What's a normal final gravity?</summary>
+      <p>Most ales finish between 1.008 and 1.014. Dry ciders and seltzers can finish at or below 1.000, because nearly all their sugar is fermentable. If your beer stalls well above the recipe's expected FG, give it warmth and time before assuming it's done.</p>
+    </details>
+
+    <details>
+      <summary>My gravity hasn't moved for days but it's higher than expected. Is it finished?</summary>
+      <p>Stable readings two to three days apart mean fermentation has stopped — but stopped isn't always finished. A stuck fermentation can restart in the bottle and over-carbonate, so if you're far above the expected FG, rouse the yeast or warm it a few degrees and re-check before bottling.</p>
+    </details>
+
+    <details>
+      <summary>Does priming sugar change the ABV?</summary>
+      <p>Slightly. The sugar you add at bottling ferments too, adding roughly 0.1–0.2% ABV depending on the dose. Most brewers ignore it; add it mentally if you're chasing precision.</p>
+    </details>
+
+    <details>
+      <summary>Can I measure ABV without an OG reading?</summary>
+      <p>Not accurately with home equipment. The alcohol estimate needs the before-and-after density difference. If you forgot the OG, use the recipe's predicted OG as a stand-in and treat the result as an estimate.</p>
+    </details>
+  </section>
+
+  <!-- Related -->
+  <section class="related">
+    <h2>Related</h2>
+    <a href="./priming-sugar-calculator.html">Priming sugar calculator — carbonate your bottles →</a>
+    <a href="./convert-beer-recipe-gallons-to-litres.html">Convert a beer recipe from gallons to litres →</a>
+    <a href="./">Free homebrew recipe scaler &amp; brewing calculators →</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="yr">2026</span> Fermentory · homebrew recipe assistant</div>
+    <div class="links">
+      <a href="./">Home</a>
+      <a href="https://chromewebstore.google.com/detail/cgcilikjgbgbmlpknnmpejcjikmapmme" target="_blank" rel="noopener">Chrome extension</a>
+      <a href="https://nautahakk.github.io/fermentory-privacy/">Privacy</a>
+      <a href="mailto:fermentory@proton.me">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"What is a normal final gravity for beer?","acceptedAnswer":{"@type":"Answer","text":"Most ales finish between 1.008 and 1.014. Dry ciders and seltzers can finish at or below 1.000 because nearly all their sugar is fermentable."}},
+    {"@type":"Question","name":"How do I calculate ABV from OG and FG?","acceptedAnswer":{"@type":"Answer","text":"ABV is approximately (OG minus FG) times 131.25. A beer going from 1.050 to 1.010 is about 5.25% ABV."}},
+    {"@type":"Question","name":"Does priming sugar change the ABV?","acceptedAnswer":{"@type":"Answer","text":"Slightly. Bottle priming adds roughly 0.1 to 0.2% ABV depending on the dose."}},
+    {"@type":"Question","name":"Can I measure ABV without an OG reading?","acceptedAnswer":{"@type":"Answer","text":"Not accurately with home equipment. The estimate needs the density change from before to after fermentation. Use the recipe's predicted OG as a stand-in if you missed the reading."}}
+  ]
+}
+</script>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var og = document.getElementById('a-og'), fg = document.getElementById('a-fg'),
+      out = document.getElementById('a-out'), note = document.getElementById('a-note');
+  function abv(){
+    var o = parseFloat(og.value), f = parseFloat(fg.value);
+    if(isNaN(o) || isNaN(f)){ out.textContent = '—'; note.textContent = 'Enter both gravities'; return; }
+    if(o <= f){ out.textContent = '—'; note.textContent = 'OG must be higher than FG'; return; }
+    var pct = (o - f) * 131.25;                       // same formula as the Fermentory extension
+    var atten = (o - f) / (o - 1) * 100;
+    var points = Math.round((o - f) * 1000);
+    out.textContent = (Math.round(pct * 100) / 100) + '% ABV';
+    note.textContent = Math.round(atten) + '% apparent attenuation · ' + points + ' gravity points fermented';
+  }
+  og.addEventListener('input', abv);
+  fg.addEventListener('input', abv);
+  abv();
+</script>
+</body>
+</html>

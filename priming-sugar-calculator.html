@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priming Sugar Calculator — corn or table sugar for bottling | Fermentory</title>
+<meta name="description" content="Free priming sugar calculator for bottling beer, cider or seltzer. Enter batch size, style and temperature — get grams of corn or table sugar, plus per-bottle amounts.">
+<link rel="canonical" href="https://nautahakk.github.io/fermentory.github.io/priming-sugar-calculator.html">
+<meta name="theme-color" content="#5A4030">
+<link rel="icon" href="./icon-128.png">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Priming Sugar Calculator — how much sugar to carbonate your beer">
+<meta property="og:description" content="Batch size + style + temperature in, grams of priming sugar out. Corn and table sugar, with per-bottle amounts. Free, no sign-up.">
+<meta property="og:image" content="https://nautahakk.github.io/fermentory.github.io/icon-128.png">
+<meta property="og:url" content="https://nautahakk.github.io/fermentory.github.io/priming-sugar-calculator.html">
+<meta name="twitter:card" content="summary">
+
+<style>
+  :root{
+    --green:#5A4030; --green2:#75471F; --green3:#75471F;
+    --cream:#F1E7D4; --cream2:#FFFBF2; --ink:#2A2018; --muted:#6C5A47;
+    --line:#D6C4A6; --line2:#E8D9BF;
+    --maxw:760px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Arial,sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px;}
+  a{color:var(--green2);}
+  h1,h2,h3{color:var(--green); line-height:1.22;}
+  .topbar{border-bottom:1px solid var(--line); background:var(--cream2);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 22px; max-width:880px;}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--green); text-decoration:none; font-size:18px;}
+  .brand img{width:30px; height:30px; border-radius:7px;}
+  .topbar .cta-sm{
+    background:var(--green); color:#fff; text-decoration:none; font-weight:600;
+    padding:8px 14px; border-radius:8px; font-size:14px; white-space:nowrap;
+    transition:background .15s ease;
+  }
+  .topbar .cta-sm:hover{background:var(--green2);}
+  .crumb{font-size:13px; color:var(--muted); padding:18px 0 0;}
+  .crumb a{color:var(--green3); text-decoration:none;}
+  .crumb a:hover{text-decoration:underline;}
+  .hero{padding:20px 0 6px;}
+  .hero h1{font-size:clamp(27px,4.6vw,38px); margin:0 0 12px;}
+  .hero p.sub{font-size:clamp(16px,2.2vw,18px); color:var(--ink); margin:0;}
+  .quick{
+    background:#F6EBDD; border:1px solid #D9C29F; border-left:4px solid var(--green2);
+    border-radius:10px; padding:16px 18px; margin:24px 0;
+  }
+  .quick p{margin:0; font-size:15.5px;}
+  .quick b{color:var(--green);}
+  .tool{
+    background:#fff; border:1px solid var(--line); border-radius:14px;
+    box-shadow:0 1px 0 rgba(27,67,50,.04), 0 14px 34px -22px rgba(27,67,50,.35);
+    padding:24px; margin:26px 0;
+  }
+  .tool.hero-tool{border-top:4px solid var(--green2);}
+  .tool h2{font-size:19px; margin:0 0 4px;}
+  .tool .desc{color:var(--muted); font-size:14px; margin:0 0 16px;}
+  .field-row{display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end;}
+  .field{flex:1 1 130px; min-width:120px;}
+  .field label{display:block; font-size:13px; font-weight:600; color:var(--green); margin-bottom:5px;}
+  input,select{
+    width:100%; font:inherit; color:var(--ink); background:var(--cream2);
+    border:1px solid var(--line); border-radius:9px; padding:10px 12px;
+  }
+  input:focus,select:focus{
+    outline:none; border-color:var(--green3); box-shadow:0 0 0 3px rgba(181,121,58,.22); background:#fff;
+  }
+  .conv-out{
+    margin-top:16px; background:var(--cream2); border:1px dashed #D4BA93; border-radius:10px;
+    padding:14px 16px; font-variant-numeric:tabular-nums;
+  }
+  .conv-out .big{font-size:24px; font-weight:700; color:var(--green);}
+  .conv-out .small{display:block; color:var(--muted); font-size:13px; margin-top:2px;}
+  .warn{margin-top:10px; font-size:13.5px; color:#8a5a00; background:#fdf3e2; border:1px solid #f0dfc0; border-radius:8px; padding:9px 12px; display:none;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    background:var(--green); color:#fff; border:none; font-weight:600; font-size:15px;
+    padding:11px 20px; border-radius:9px; transition:background .15s ease; text-decoration:none;
+    margin-top:16px;
+  }
+  .btn:hover{background:var(--green2);}
+  .prose{margin:30px 0;}
+  .prose h2{font-size:23px; margin:34px 0 10px;}
+  .prose h3{font-size:17px; margin:24px 0 6px;}
+  .prose p{margin:0 0 14px;}
+  .prose ol,.prose ul{margin:0 0 16px; padding-left:22px;}
+  .prose li{margin-bottom:8px;}
+  .prose strong{color:var(--green);}
+  .ctable-wrap{overflow-x:auto; margin:18px 0 24px;}
+  table.ctable{width:100%; border-collapse:collapse; font-size:15px; min-width:340px;}
+  table.ctable th,table.ctable td{padding:10px 14px; text-align:left; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums;}
+  table.ctable th{background:var(--cream2); color:var(--green); font-size:13px; text-transform:uppercase; letter-spacing:.04em;}
+  table.ctable tr.hl td{background:#F6EBDD; font-weight:600;}
+  .band{
+    margin:44px 0; background:var(--green); color:#fff; border-radius:16px;
+    padding:34px 28px; text-align:center;
+  }
+  .band h2{color:#fff; font-size:23px; margin:0 0 10px;}
+  .band p{color:#F1E7D4; max-width:520px; margin:0 auto 22px; font-size:15.5px;}
+  .band .btn-store{
+    display:inline-flex; align-items:center; gap:9px; background:#fff; color:var(--green);
+    text-decoration:none; font-weight:700; font-size:16px; padding:13px 26px; border-radius:10px;
+    transition:background .15s ease;
+  }
+  .band .btn-store:hover{background:var(--cream);}
+  .band .free-note{display:block; margin-top:12px; font-size:13px; color:#EAD9BF;}
+  .faq{margin:44px 0;}
+  .faq h2{font-size:23px; margin-bottom:18px;}
+  details{background:#fff; border:1px solid var(--line); border-radius:10px; padding:4px 18px; margin-bottom:12px;}
+  details summary{
+    cursor:pointer; font-weight:600; color:var(--green); padding:13px 0; list-style:none;
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+"; font-size:22px; color:var(--green3); font-weight:400;}
+  details[open] summary::after{content:"–";}
+  details p{margin:0 0 14px; color:var(--ink);}
+  .related{margin:40px 0;}
+  .related h2{font-size:19px; margin-bottom:12px;}
+  .related a{display:block; padding:12px 16px; background:#fff; border:1px solid var(--line);
+    border-radius:9px; margin-bottom:9px; text-decoration:none; color:var(--green2); font-weight:600;}
+  .related a:hover{border-color:var(--green3); background:var(--cream2);}
+  footer{border-top:1px solid var(--line); margin-top:44px; padding:30px 0 50px; color:var(--muted); font-size:14px;}
+  footer .wrap{display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; justify-content:space-between; max-width:880px;}
+  footer a{color:var(--green2); text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+  footer .links{display:flex; flex-wrap:wrap; gap:18px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="./icon-128.png" alt="">Fermentory</a>
+    <a class="cta-sm" href="https://chromewebstore.google.com/detail/cgcilikjgbgbmlpknnmpejcjikmapmme" target="_blank" rel="noopener">Add to Chrome — free</a>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <div class="crumb"><a href="./">Fermentory</a> › Calculators › Priming sugar</div>
+
+  <section class="hero">
+    <h1>Priming sugar calculator</h1>
+    <p class="sub">How much sugar to add at bottling so your beer, cider or seltzer carbonates properly — and doesn't gush or stay flat. Enter your batch, pick a style, and read off the grams.</p>
+  </section>
+
+  <div class="quick">
+    <p><b>Quick answer:</b> a standard <b>19 L (5 gal)</b> ale carbonated to 2.4 volumes, bottled at 20&nbsp;°C, needs about <b>117 g of corn sugar</b> or <b>107 g of table sugar</b> — roughly <b>3.1 g per 500 ml bottle</b>.</p>
+  </div>
+
+  <!-- Calculator -->
+  <div class="tool hero-tool">
+    <h2>Work out your priming sugar</h2>
+    <p class="desc">Temperature means the warmest your beer got <em>after</em> fermentation finished — that sets how much CO₂ is still dissolved in it.</p>
+    <div class="field-row">
+      <div class="field">
+        <label for="p-size">Batch size</label>
+        <input id="p-size" type="number" step="0.1" min="0.5" value="19" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="p-unit">Unit</label>
+        <select id="p-unit">
+          <option value="1">litres</option>
+          <option value="3.78541">US gallons</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="p-style">Style (target CO₂)</label>
+        <select id="p-style">
+          <option value="1.9">British ale — 1.9 vols</option>
+          <option value="2.4" selected>Pale ale / IPA — 2.4 vols</option>
+          <option value="2.6">Lager — 2.6 vols</option>
+          <option value="2.9">Cider — 2.9 vols</option>
+          <option value="3.0">Hard seltzer — 3.0 vols</option>
+          <option value="3.2">Wheat / Belgian — 3.2 vols</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row" style="margin-top:14px;">
+      <div class="field">
+        <label for="p-temp">Warmest temp after fermentation</label>
+        <input id="p-temp" type="number" step="0.5" value="20" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="p-tunit">Temp unit</label>
+        <select id="p-tunit">
+          <option value="c">°C</option>
+          <option value="f">°F</option>
+        </select>
+      </div>
+    </div>
+    <div class="conv-out">
+      <span class="big" id="p-out">117 g corn sugar</span>
+      <span class="small" id="p-alt">or 107 g table sugar · about 3.1 g per 500 ml bottle (2.0 g per 330 ml)</span>
+    </div>
+    <div class="warn" id="p-warn"></div>
+    <a class="btn" href="./">More free brewing tools →</a>
+  </div>
+
+  <div class="prose">
+    <h2>How priming works, in one paragraph</h2>
+    <p>At bottling, your yeast is still alive but has run out of food. Priming sugar is a measured last meal: the yeast eats it inside the sealed bottle, the CO₂ it makes has nowhere to go, and it dissolves into the beer. The right dose gives you the fizz the style needs. Too much gives you gushers or, in the worst case, burst glass — so you calculate, you don't guess.</p>
+
+    <h2>The two numbers that matter</h2>
+    <h3>1. Target carbonation, in volumes of CO₂</h3>
+    <p>"Volumes" is how brewing measures fizz: 2.4 volumes means the beer holds 2.4 times its own volume in dissolved CO₂. Every style has a customary range:</p>
+    <div class="ctable-wrap">
+      <table class="ctable">
+        <thead><tr><th>Style</th><th>Volumes of CO₂</th></tr></thead>
+        <tbody>
+          <tr><td>British ales, stouts</td><td>1.5 – 2.0</td></tr>
+          <tr class="hl"><td>Pale ale, IPA, most ales</td><td>2.2 – 2.6</td></tr>
+          <tr><td>Lager, pilsner</td><td>2.4 – 2.7</td></tr>
+          <tr><td>Cider (sparkling)</td><td>2.5 – 3.0</td></tr>
+          <tr><td>Hard seltzer</td><td>2.8 – 3.2</td></tr>
+          <tr><td>Wheat beer, Belgian styles</td><td>3.0 – 4.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>2. The CO₂ already in your beer</h3>
+    <p>Fermentation leaves some CO₂ dissolved in the beer, and how much depends on temperature: warm beer holds less, cold beer holds more. That's why the calculator asks for the <strong>warmest temperature the beer reached after fermentation ended</strong>. If it fermented at 18&nbsp;°C but sat at 22&nbsp;°C for a weekend, use 22 — CO₂ that escaped during the warm spell doesn't come back when you cold crash. The calculator uses the standard residual-CO₂ curve and the classic 15.2 g of corn sugar per gallon per volume.</p>
+
+    <h2>Corn sugar or table sugar?</h2>
+    <p>Both work. Corn sugar (dextrose) is the homebrew default because it dissolves easily and ferments completely. Plain table sugar (sucrose) is about 9% more potent by weight, so you need slightly less — the calculator shows both numbers. Whichever you use, dissolve it in a little boiled water, stir it gently into the bottling bucket, and bottle as usual.</p>
+
+    <h2>Before you trust any number</h2>
+    <ul>
+      <li><strong>Make sure fermentation is actually done.</strong> Same gravity reading two or three days apart. Priming a beer that's still fermenting is the classic bottle-bomb recipe, no calculator can save you from that.</li>
+      <li><strong>Respect your bottles.</strong> Standard glass is happy to about 3 volumes. Above that, use thick Belgian-style bottles, swing-tops rated for it, or plastic PET.</li>
+      <li><strong>Mix evenly.</strong> Sugar solution poured in first, beer racked on top, one gentle stir. Uneven mixing means some bottles flat, some gushing.</li>
+    </ul>
+  </div>
+
+  <!-- Funnel band -->
+  <section class="band">
+    <h2>The calculator that reads the recipe for you</h2>
+    <p>The free Fermentory browser extension spots homebrew recipes on any blog or forum, scales them to your batch size, and carries calculators for ABV, IBU and carbonation — right in the popup.</p>
+    <a class="btn-store" href="https://chromewebstore.google.com/detail/cgcilikjgbgbmlpknnmpejcjikmapmme" target="_blank" rel="noopener">＋ Add Fermentory to Chrome</a>
+    <span class="free-note">Free to install · optional one-time Pro upgrade</span>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>Priming sugar FAQ</h2>
+
+    <details open>
+      <summary>How much priming sugar per 500 ml bottle?</summary>
+      <p>For a typical ale at 2.4 volumes bottled at 20&nbsp;°C, about 3.1 g of corn sugar per 500 ml bottle (2 g per 330 ml). That's the per-bottle version of the batch numbers above — batch priming in a bottling bucket is more consistent than dosing each bottle, but carbonation drops work fine if you prefer them.</p>
+    </details>
+
+    <details>
+      <summary>Can I use normal table sugar instead of corn sugar?</summary>
+      <p>Yes. Sucrose ferments just as completely and carbonates about 9% more per gram, so use slightly less — the calculator prints both amounts. Any flavour difference at priming quantities is essentially undetectable.</p>
+    </details>
+
+    <details>
+      <summary>Which temperature do I enter?</summary>
+      <p>The warmest the beer got after fermentation finished, not your bottling-day room temperature. CO₂ escapes from warm beer and doesn't return when you chill it, so the warm peak decides how much CO₂ is left in solution.</p>
+    </details>
+
+    <details>
+      <summary>How long until the bottles are carbonated?</summary>
+      <p>Two to three weeks at around 20&nbsp;°C, then a few days in the fridge to settle. Cold rooms slow the yeast right down, so a bottle that seems flat after a week in a cool cellar usually just needs more warm time.</p>
+    </details>
+  </section>
+
+  <!-- Related -->
+  <section class="related">
+    <h2>Related</h2>
+    <a href="./abv-calculator.html">ABV calculator — alcohol from OG &amp; FG →</a>
+    <a href="./convert-beer-recipe-gallons-to-litres.html">Convert a beer recipe from gallons to litres →</a>
+    <a href="./">Free homebrew recipe scaler &amp; brewing calculators →</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="yr">2026</span> Fermentory · homebrew recipe assistant</div>
+    <div class="links">
+      <a href="./">Home</a>
+      <a href="https://chromewebstore.google.com/detail/cgcilikjgbgbmlpknnmpejcjikmapmme" target="_blank" rel="noopener">Chrome extension</a>
+      <a href="https://nautahakk.github.io/fermentory-privacy/">Privacy</a>
+      <a href="mailto:fermentory@proton.me">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"How much priming sugar per 500 ml bottle?","acceptedAnswer":{"@type":"Answer","text":"For a typical ale at 2.4 volumes bottled at 20 °C, about 3.1 g of corn sugar per 500 ml bottle, or 2 g per 330 ml bottle."}},
+    {"@type":"Question","name":"Can I use normal table sugar instead of corn sugar?","acceptedAnswer":{"@type":"Answer","text":"Yes. Table sugar (sucrose) carbonates about 9% more per gram than corn sugar, so use slightly less. Flavour impact at priming quantities is essentially undetectable."}},
+    {"@type":"Question","name":"Which temperature do I enter in a priming calculator?","acceptedAnswer":{"@type":"Answer","text":"The warmest temperature the beer reached after fermentation finished. CO2 escapes from warm beer and does not return on chilling, so the warm peak sets the residual CO2."}},
+    {"@type":"Question","name":"How long until bottles are carbonated?","acceptedAnswer":{"@type":"Answer","text":"Two to three weeks at around 20 °C, then a few days in the fridge. Cold storage slows the yeast, so cool-stored bottles need longer."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HowTo",
+  "name":"How to calculate priming sugar for bottling beer",
+  "step":[
+    {"@type":"HowToStep","name":"Confirm fermentation is finished","text":"Take gravity readings two or three days apart; they must match before you prime."},
+    {"@type":"HowToStep","name":"Pick the target carbonation","text":"Choose the CO2 volumes for the style, for example 2.4 volumes for a pale ale."},
+    {"@type":"HowToStep","name":"Enter batch size and warmest post-fermentation temperature","text":"The temperature sets how much CO2 is already dissolved in the beer."},
+    {"@type":"HowToStep","name":"Add the calculated sugar","text":"Dissolve the sugar in a little boiled water, mix gently into the bottling bucket, and bottle."}
+  ]
+}
+</script>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var ps = document.getElementById('p-size'), pu = document.getElementById('p-unit'),
+      st = document.getElementById('p-style'), tp = document.getElementById('p-temp'),
+      tu = document.getElementById('p-tunit'), out = document.getElementById('p-out'),
+      alt = document.getElementById('p-alt'), warn = document.getElementById('p-warn');
+
+  function prime(){
+    var size = parseFloat(ps.value), vols = parseFloat(st.value), t = parseFloat(tp.value);
+    if(isNaN(size) || size <= 0 || isNaN(t)){ out.textContent = '—'; alt.textContent = 'Enter a batch size and temperature'; warn.style.display='none'; return; }
+    var litres = size * parseFloat(pu.value);
+    var tF = tu.value === 'f' ? t : t * 9/5 + 32;
+    // Standard residual-CO2 curve + 15.195 g corn sugar / gal / volume (= 4.014 g/L/vol)
+    var residual = 3.0378 - 0.050062 * tF + 0.00026555 * tF * tF;
+    var delta = Math.max(0, vols - residual);
+    var corn = 4.014 * litres * delta;
+    var table = corn * 0.91;
+    if(delta === 0){
+      out.textContent = '0 g — no sugar needed';
+      alt.textContent = 'At that temperature the beer already holds your target CO₂.';
+    } else {
+      out.textContent = Math.round(corn) + ' g corn sugar';
+      alt.textContent = 'or ' + Math.round(table) + ' g table sugar · about ' +
+        (Math.round(corn / litres * 0.5 * 10) / 10) + ' g per 500 ml bottle (' +
+        (Math.round(corn / litres * 0.33 * 10) / 10) + ' g per 330 ml)';
+    }
+    if(vols >= 3.4){
+      warn.textContent = 'That carbonation level is above what standard glass bottles are rated for. Use heavy Belgian-style bottles, rated swing-tops, or PET.';
+      warn.style.display = 'block';
+    } else { warn.style.display = 'none'; }
+  }
+  [ps, pu, st, tp, tu].forEach(function(el){
+    el.addEventListener('input', prime); el.addEventListener('change', prime);
+  });
+  prime();
+</script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convert a Beer Recipe from Gallons to Litres — Fermentory</title>
+<meta name="description" content="Most homebrew recipes online are in US gallons. Here's the fast way to convert the whole recipe to litres, a gallons-to-litres batch table, and a free tool that rescales every ingredient for you.">
+<link rel="canonical" href="https://nautahakk.github.io/fermentory.github.io/convert-beer-recipe-gallons-to-litres.html">
+<meta name="theme-color" content="#5A4030">
+<link rel="icon" href="./icon-128.png">
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Convert a Beer Recipe from Gallons to Litres">
+<meta property="og:description" content="The quick way to turn a US gallon homebrew recipe into litres — table, worked example, and a free ingredient rescaler.">
+<meta property="og:image" content="https://nautahakk.github.io/fermentory.github.io/icon-128.png">
+<meta property="og:url" content="https://nautahakk.github.io/fermentory.github.io/convert-beer-recipe-gallons-to-litres.html">
+<meta name="twitter:card" content="summary">
+
+<style>
+  :root{
+    --green:#5A4030; --green2:#75471F; --green3:#75471F;
+    --cream:#F1E7D4; --cream2:#FFFBF2; --ink:#2A2018; --muted:#6C5A47;
+    --line:#D6C4A6; --line2:#E8D9BF;
+    --maxw:760px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Arial,sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px;}
+  a{color:var(--green2);}
+  h1,h2,h3{color:var(--green); line-height:1.22;}
+
+  /* ── Top bar ── */
+  .topbar{border-bottom:1px solid var(--line); background:var(--cream2);}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 22px; max-width:880px;}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--green); text-decoration:none; font-size:18px;}
+  .brand img{width:30px; height:30px; border-radius:7px;}
+  .topbar .cta-sm{
+    background:var(--green); color:#fff; text-decoration:none; font-weight:600;
+    padding:8px 14px; border-radius:8px; font-size:14px; white-space:nowrap;
+    transition:background .15s ease;
+  }
+  .topbar .cta-sm:hover{background:var(--green2);}
+
+  /* ── Breadcrumb ── */
+  .crumb{font-size:13px; color:var(--muted); padding:18px 0 0;}
+  .crumb a{color:var(--green3); text-decoration:none;}
+  .crumb a:hover{text-decoration:underline;}
+
+  /* ── Hero ── */
+  .hero{padding:20px 0 6px;}
+  .hero h1{font-size:clamp(27px,4.6vw,38px); margin:0 0 12px;}
+  .hero p.sub{font-size:clamp(16px,2.2vw,18px); color:var(--ink); margin:0;}
+
+  /* ── Quick answer callout ── */
+  .quick{
+    background:#F6EBDD; border:1px solid #D9C29F; border-left:4px solid var(--green2);
+    border-radius:10px; padding:16px 18px; margin:24px 0;
+  }
+  .quick p{margin:0; font-size:15.5px;}
+  .quick b{color:var(--green);}
+
+  /* ── Tool card ── */
+  .tool{
+    background:#fff; border:1px solid var(--line); border-radius:14px;
+    box-shadow:0 1px 0 rgba(27,67,50,.04), 0 14px 34px -22px rgba(27,67,50,.35);
+    padding:24px; margin:26px 0;
+  }
+  .tool.hero-tool{border-top:4px solid var(--green2);}
+  .tool h2{font-size:19px; margin:0 0 4px;}
+  .tool .desc{color:var(--muted); font-size:14px; margin:0 0 16px;}
+  .field-row{display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end;}
+  .field{flex:1 1 130px; min-width:120px;}
+  .field label{display:block; font-size:13px; font-weight:600; color:var(--green); margin-bottom:5px;}
+  input,select{
+    width:100%; font:inherit; color:var(--ink); background:var(--cream2);
+    border:1px solid var(--line); border-radius:9px; padding:10px 12px;
+  }
+  input:focus,select:focus{
+    outline:none; border-color:var(--green3); box-shadow:0 0 0 3px rgba(181,121,58,.22); background:#fff;
+  }
+  .conv-out{
+    margin-top:16px; background:var(--cream2); border:1px dashed #D4BA93; border-radius:10px;
+    padding:14px 16px; font-variant-numeric:tabular-nums;
+  }
+  .conv-out .big{font-size:24px; font-weight:700; color:var(--green);}
+  .conv-out .small{display:block; color:var(--muted); font-size:13px; margin-top:2px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    background:var(--green); color:#fff; border:none; font-weight:600; font-size:15px;
+    padding:11px 20px; border-radius:9px; transition:background .15s ease; text-decoration:none;
+    margin-top:16px;
+  }
+  .btn:hover{background:var(--green2);}
+
+  /* ── Prose ── */
+  .prose{margin:30px 0;}
+  .prose h2{font-size:23px; margin:34px 0 10px;}
+  .prose h3{font-size:17px; margin:24px 0 6px;}
+  .prose p{margin:0 0 14px;}
+  .prose ol,.prose ul{margin:0 0 16px; padding-left:22px;}
+  .prose li{margin-bottom:8px;}
+  .prose strong{color:var(--green);}
+
+  /* ── Table ── */
+  .ctable-wrap{overflow-x:auto; margin:18px 0 24px;}
+  table.ctable{width:100%; border-collapse:collapse; font-size:15px; min-width:340px;}
+  table.ctable th,table.ctable td{padding:10px 14px; text-align:left; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums;}
+  table.ctable th{background:var(--cream2); color:var(--green); font-size:13px; text-transform:uppercase; letter-spacing:.04em;}
+  table.ctable tr.hl td{background:#F6EBDD; font-weight:600;}
+
+  /* ── Funnel band ── */
+  .band{
+    margin:44px 0; background:var(--green); color:#fff; border-radius:16px;
+    padding:34px 28px; text-align:center;
+  }
+  .band h2{color:#fff; font-size:23px; margin:0 0 10px;}
+  .band p{color:#F1E7D4; max-width:520px; margin:0 auto 22px; font-size:15.5px;}
+  .band .btn-store{
+    display:inline-flex; align-items:center; gap:9px; background:#fff; color:var(--green);
+    text-decoration:none; font-weight:700; font-size:16px; padding:13px 26px; border-radius:10px;
+    transition:background .15s ease;
+  }
+  .band .btn-store:hover{background:var(--cream);}
+  .band .free-note{display:block; margin-top:12px; font-size:13px; color:#EAD9BF;}
+
+  /* ── FAQ ── */
+  .faq{margin:44px 0;}
+  .faq h2{font-size:23px; margin-bottom:18px;}
+  details{background:#fff; border:1px solid var(--line); border-radius:10px; padding:4px 18px; margin-bottom:12px;}
+  details summary{
+    cursor:pointer; font-weight:600; color:var(--green); padding:13px 0; list-style:none;
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+"; font-size:22px; color:var(--green3); font-weight:400;}
+  details[open] summary::after{content:"–";}
+  details p{margin:0 0 14px; color:var(--ink);}
+
+  /* ── Related ── */
+  .related{margin:40px 0;}
+  .related h2{font-size:19px; margin-bottom:12px;}
+  .related a{display:block; padding:12px 16px; background:#fff; border:1px solid var(--line);
+    border-radius:9px; margin-bottom:9px; text-decoration:none; color:var(--green2); font-weight:600;}
+  .related a:hover{border-color:var(--green3); background:var(--cream2);}
+
+  /* ── Footer ── */
+  footer{border-top:1px solid var(--line); margin-top:44px; padding:30px 0 50px; color:var(--muted); font-size:14px;}
+  footer .wrap{display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; justify-content:space-between; max-width:880px;}
+  footer a{color:var(--green2); text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+  footer .links{display:flex; flex-wrap:wrap; gap:18px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="./icon-128.png" alt="">Fermentory</a>
+    <a class="cta-sm" href="https://chromewebstore.google.com/detail/cgcilikjgbgbmlpknnmpejcjikmapmme" target="_blank" rel="noopener">Add to Chrome — free</a>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <div class="crumb"><a href="./">Fermentory</a> › Guides › Gallons to litres</div>
+
+  <section class="hero">
+    <h1>Convert a beer recipe from gallons to litres</h1>
+    <p class="sub">Most homebrew recipes online are American, written in US gallons. If you brew in litres, here's the quick way to convert the whole recipe, not just the water, plus a table and a free tool that does every ingredient for you.</p>
+  </section>
+
+  <div class="quick">
+    <p><b>Quick answer:</b> 1 US gallon is <b>3.785 litres</b>, so a standard 5 US gallon recipe is about <b>18.9 litres</b>. A UK (imperial) gallon is larger at 4.546 litres, but almost every recipe you find online uses US gallons.</p>
+  </div>
+
+  <!-- On-page converter -->
+  <div class="tool hero-tool">
+    <h2>Gallons → litres</h2>
+    <p class="desc">Convert the batch size first. Then use the full scaler for the ingredients.</p>
+    <div class="field-row">
+      <div class="field">
+        <label for="g-val">Recipe size</label>
+        <input id="g-val" type="number" step="0.1" min="0.1" value="5" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="g-unit">Gallon type</label>
+        <select id="g-unit">
+          <option value="3.78541">US gallons</option>
+          <option value="4.54609">UK gallons</option>
+        </select>
+      </div>
+    </div>
+    <div class="conv-out">
+      <span class="big" id="g-out">18.9 litres</span>
+      <span class="small" id="g-note">5 US gallons converted to litres</span>
+    </div>
+    <a class="btn" href="./">Scale the whole recipe in the free tool →</a>
+  </div>
+
+  <div class="prose">
+    <h2>Common batch sizes in litres</h2>
+    <p>The batch sizes you'll see most often in American recipes, converted to litres:</p>
+    <div class="ctable-wrap">
+      <table class="ctable">
+        <thead><tr><th>US gallons</th><th>Litres</th><th>Also known as</th></tr></thead>
+        <tbody>
+          <tr><td>1 gal</td><td>3.8 L</td><td>Small test batch</td></tr>
+          <tr><td>2.5 gal</td><td>9.5 L</td><td>Half batch</td></tr>
+          <tr><td>3 gal</td><td>11.4 L</td><td>Stovetop batch</td></tr>
+          <tr class="hl"><td>5 gal</td><td>18.9 L</td><td>The standard homebrew batch</td></tr>
+          <tr><td>6 gal</td><td>22.7 L</td><td>5 gal into a keg, with losses</td></tr>
+          <tr><td>10 gal</td><td>37.9 L</td><td>Double batch</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>How to convert the whole recipe, not just the water</h2>
+    <p>Converting the batch volume is the easy part. The bit people get wrong is the ingredients. You can't convert the water to litres and leave the malt and hops sitting at their old amounts, because you've changed how much beer you're making.</p>
+    <p>The method is one idea, three steps:</p>
+    <ol>
+      <li>Decide the batch size you actually brew, in litres. Say <strong>20 L</strong>.</li>
+      <li>Work out the scale factor: your litres divided by the recipe's litres. A 5 gallon (18.9 L) recipe brewed as 20 L is 20 ÷ 18.9 = <strong>1.06</strong>.</li>
+      <li>Multiply every ingredient by that factor. 2.5 kg of malt becomes 2.65 kg, 30 g of hops becomes 32 g, and so on down the list.</li>
+    </ol>
+    <p><strong>Shortcut:</strong> a 5 gallon recipe is basically a 19 litre recipe. If you brew 19 L, the amounts are close enough to use as they are without touching a calculator.</p>
+    <p>Recipe also written in pounds and ounces? Convert those while you're at it: 1 lb = 0.454 kg, and 1 oz = 28.3 g.</p>
+
+    <h2>What you don't need to worry about</h2>
+    <ul>
+      <li><strong>Your ABV won't change.</strong> Alcohol comes from the ratio of sugar to water, not the size of the batch. Scale everything together and a 5.5% beer stays a 5.5% beer.</li>
+      <li><strong>Bitterness stays about the same.</strong> As long as you scale the hops by the same factor as the volume, the IBU lands in roughly the same place.</li>
+      <li><strong>Only your equipment needs half an eye.</strong> A different kettle or mash efficiency can nudge your grain a little, but that's a small tweak, not a full recalculation.</li>
+    </ul>
+  </div>
+
+  <!-- Funnel band -->
+  <section class="band">
+    <h2>Skip the maths on every recipe</h2>
+    <p>The free Fermentory browser extension spots homebrew recipes on any blog or forum and rescales the whole thing to your batch size in litres, no copy-paste. It builds a shopping list from the recipe too.</p>
+    <a class="btn-store" href="https://chromewebstore.google.com/detail/cgcilikjgbgbmlpknnmpejcjikmapmme" target="_blank" rel="noopener">＋ Add Fermentory to Chrome</a>
+    <span class="free-note">Free to install · optional one-time Pro upgrade</span>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>Gallons to litres FAQ</h2>
+
+    <details open>
+      <summary>How many litres is a 5 gallon batch of beer?</summary>
+      <p>A US 5 gallon batch is about 18.9 litres (5 × 3.785). If the recipe means UK gallons, which is rare online, it works out to 22.7 litres instead.</p>
+    </details>
+
+    <details>
+      <summary>Are homebrew recipes in US or UK gallons?</summary>
+      <p>Almost always US gallons, at 3.785 litres each, because most recipes online come from American brewers and sites. If a recipe clearly comes from a UK source it may use imperial gallons (4.546 litres), so check where it's from if the numbers look off.</p>
+    </details>
+
+    <details>
+      <summary>Do I need to change the hops when I convert to litres?</summary>
+      <p>Scale the hops by the same factor as the rest of the recipe and your bitterness stays about the same. You only need to rethink hops if you also change the batch size by a lot or brew at a different gravity, in which case re-check the IBU.</p>
+    </details>
+
+    <details>
+      <summary>Does converting a recipe to litres change the ABV?</summary>
+      <p>No. Alcohol depends on the ratio of fermentable sugar to water, not the batch size. If you scale every ingredient and the volume by the same amount, the ABV is unchanged.</p>
+    </details>
+  </section>
+
+  <!-- Related -->
+  <section class="related">
+    <h2>Related</h2>
+    <a href="./priming-sugar-calculator.html">Priming sugar calculator — carbonate your bottles →</a>
+    <a href="./abv-calculator.html">ABV calculator — alcohol from OG &amp; FG →</a>
+    <a href="./">Free homebrew recipe scaler &amp; brewing calculators →</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="yr">2026</span> Fermentory · homebrew recipe assistant</div>
+    <div class="links">
+      <a href="./">Home</a>
+      <a href="https://chromewebstore.google.com/detail/cgcilikjgbgbmlpknnmpejcjikmapmme" target="_blank" rel="noopener">Chrome extension</a>
+      <a href="https://nautahakk.github.io/fermentory-privacy/">Privacy</a>
+      <a href="mailto:fermentory@proton.me">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Structured data: FAQ + HowTo for rich results -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"How many litres is a 5 gallon batch of beer?","acceptedAnswer":{"@type":"Answer","text":"A US 5 gallon batch is about 18.9 litres (5 × 3.785). If the recipe means UK gallons, which is rare online, it works out to 22.7 litres."}},
+    {"@type":"Question","name":"Are homebrew recipes in US or UK gallons?","acceptedAnswer":{"@type":"Answer","text":"Almost always US gallons, at 3.785 litres each, because most recipes online come from American brewers. UK sources may use imperial gallons of 4.546 litres."}},
+    {"@type":"Question","name":"Do I need to change the hops when I convert to litres?","acceptedAnswer":{"@type":"Answer","text":"Scale the hops by the same factor as the rest of the recipe and the bitterness stays about the same. Only re-check the IBU if you also change the batch size a lot or the gravity."}},
+    {"@type":"Question","name":"Does converting a recipe to litres change the ABV?","acceptedAnswer":{"@type":"Answer","text":"No. Alcohol depends on the ratio of sugar to water, not the batch size. Scale every ingredient and the volume by the same amount and the ABV is unchanged."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HowTo",
+  "name":"How to convert a beer recipe from gallons to litres",
+  "step":[
+    {"@type":"HowToStep","name":"Convert the batch size","text":"Multiply the recipe's gallons by 3.785 to get litres. A 5 US gallon recipe is 18.9 litres."},
+    {"@type":"HowToStep","name":"Pick your batch size","text":"Decide the size you actually brew in litres, for example 20 litres."},
+    {"@type":"HowToStep","name":"Find the scale factor","text":"Divide your litres by the recipe's litres. 20 divided by 18.9 is 1.06."},
+    {"@type":"HowToStep","name":"Scale every ingredient","text":"Multiply each malt, hop and yeast amount by the scale factor to get the new recipe."}
+  ]
+}
+</script>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var gv = document.getElementById('g-val'),
+      gu = document.getElementById('g-unit'),
+      go = document.getElementById('g-out'),
+      gn = document.getElementById('g-note');
+  function conv(){
+    var v = parseFloat(gv.value), f = parseFloat(gu.value);
+    var name = gu.options[gu.selectedIndex].text;
+    if(isNaN(v) || v <= 0){ go.textContent = '—'; gn.textContent = 'Enter a batch size'; return; }
+    var litres = v * f;
+    go.textContent = (Math.round(litres * 10) / 10) + ' litres';
+    gn.textContent = v + ' ' + name.replace(' gallons','') + (v === 1 ? ' gallon' : ' gallons') + ' converted to litres';
+  }
+  gv.addEventListener('input', conv);
+  gu.addEventListener('change', conv);
+  conv();
+</script>
+</body>
+</html>

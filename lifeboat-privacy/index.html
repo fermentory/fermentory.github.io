@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lifeboat — Privacy Policy</title>
+<style>
+  :root { --paper:#F6E7C8; --card:#FBF3E2; --ink:#2A1F1A; --rust:#9C2F1E;
+          --teal:#1A6B66; --meta:#6B5B49; --tomato:#C0392B; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink);
+         font-family:"Archivo","Segoe UI",system-ui,sans-serif; line-height:1.6;
+         padding:48px 24px; }
+  .wrap { max-width:70ch; margin:0 auto; }
+  header { background:var(--tomato); color:#FBEFD9; border:2px solid var(--ink);
+           padding:24px; margin-bottom:32px; display:flex; align-items:center; gap:16px; }
+  .ring { width:44px; height:44px; border-radius:50%; background:#FBEFD9;
+          border:2px solid var(--ink); display:grid; place-items:center;
+          flex:0 0 auto; transform:rotate(-8deg); }
+  h1 { font-size:1.75rem; letter-spacing:0.04em; font-weight:700; }
+  .sub { font-size:0.75rem; letter-spacing:0.14em; text-transform:uppercase; }
+  h2 { font-size:1.125rem; color:var(--rust); margin:32px 0 8px; }
+  p, li { margin-bottom:8px; }
+  ul { padding-left:24px; }
+  .card { background:var(--card); border:2px solid var(--ink); padding:16px 24px; margin:24px 0; }
+  .card p:last-child { margin-bottom:0; }
+  strong { color:var(--rust); }
+  a { color:var(--teal); transition:color 200ms ease-in-out; }
+  a:hover { color:var(--rust); }
+  a:focus-visible { outline:3px solid currentColor; outline-offset:4px; }
+  footer { margin-top:48px; font-size:0.875rem; color:var(--meta);
+           border-top:2px solid var(--ink); padding-top:16px; }
+  @media (prefers-reduced-motion:reduce) { a { transition:none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="ring" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D9442C">
+        <circle cx="12" cy="12" r="9" stroke-width="1.5"/>
+        <circle cx="12" cy="12" r="4.3" stroke-width="1.5"/>
+        <g stroke-width="4.4">
+          <path d="M8.45 6.32a6.7 6.7 0 0 1 7.1 0"/>
+          <path d="M17.68 8.45a6.7 6.7 0 0 1 0 7.1"/>
+          <path d="M15.55 17.68a6.7 6.7 0 0 1-7.1 0"/>
+          <path d="M6.32 15.55a6.7 6.7 0 0 1 0-7.1"/>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <h1>Lifeboat</h1>
+      <p class="sub">Privacy Policy</p>
+    </div>
+  </header>
+
+  <div class="card">
+    <p><strong>The short version:</strong> Lifeboat saves the text you type into web forms so it can give it
+    back when a page loses it. That text stays on your computer, encrypted. It is never
+    sent anywhere by the extension. Free saving and recovery work offline. Pro sends
+    licence details to Polar for activation and periodic validation; it never sends
+    your saved text. There is no Lifeboat account to create.</p>
+  </div>
+
+  <h2>What Lifeboat stores</h2>
+  <ul>
+    <li>Text you type into form fields, text areas and editors on websites you visit</li>
+    <li>The address of the page and a label for the field, so your text can be offered back in the right place</li>
+    <li>Your settings: which sites are paused, your chosen theme, and your saved-text preferences</li>
+    <li>Your licence key and activation identifier, if you buy Lifeboat Pro</li>
+    <li>Local save/rescue counts and whether you dismissed the optional review invitation. These are never sent as analytics.</li>
+  </ul>
+  <p>All of it lives in your browser's local storage on your own device. Saved text is
+  encrypted at rest using AES-GCM.</p>
+
+  <h2>Which fields Lifeboat excludes</h2>
+  <ul>
+    <li><strong>Passwords.</strong> Password fields are excluded in code, always.</li>
+    <li><strong>Recognised payment fields.</strong> Card-number and security-code fields identified by their type, autocomplete hints or labels are excluded.</li>
+    <li><strong>Recognised national-ID fields</strong>, including SSN and kennitala labels.</li>
+  </ul>
+  <p>These field exclusions cannot be turned off. They do not inspect or classify every
+  piece of writing: sensitive information pasted into an ordinary text box can still
+  be saved. Pause saving on sensitive sites. Version 1.0.2 also adds deletion from the popup.</p>
+
+  <h2>What leaves your device</h2>
+  <p>Your saved text: <strong>never</strong>. Lifeboat has no server and no analytics.</p>
+  <p>If you enter a Pro licence key, Lifeboat contacts
+  <a href="https://polar.sh" rel="noopener">Polar</a>, our payment provider, to activate
+  and validate it. It checks again periodically (normally after a week; failed checks
+  may retry). Requests include the licence key, organisation and activation identifiers,
+  and a generic browser label at activation. They never contain your saved text or saved
+  page addresses. Polar also receives the usual network connection details. Polar acts as merchant of
+  record for the purchase and handles payment and tax; see their
+  <a href="https://polar.sh/legal/privacy" rel="noopener">privacy policy</a>.</p>
+
+  <h2>How long it is kept</h2>
+  <p>By default Lifeboat keeps the last 3 versions of each field for 7 days, then deletes
+  them on its next scheduled cleanup (normally every six hours while Chrome runs).
+  Saving starts at 25 characters by default. Lifeboat Pro lets you change retention to anywhere from 3 to 30 days
+  and 1 to 10 versions. Deleted means deleted — there is no copy elsewhere.</p>
+
+  <h2>Your control</h2>
+  <ul>
+    <li>See everything saved for a site in the extension popup</li>
+    <li>Pause Lifeboat on any site with one tap; it then saves nothing there</li>
+    <li>Export the latest saved text for each field on a site as a JSON file</li>
+    <li>In version 1.0.2, forget a draft and its versions, delete an earlier version, or clear a site without uninstalling. A 15-second Undo keeps only encrypted rows temporarily in worker memory; it ends sooner if Chrome stops that worker. It does not affect your Pro licence.</li>
+    <li>Remove the extension to delete everything it stored — nothing is left behind, because nothing was ever anywhere else</li>
+  </ul>
+
+  <h2>Children</h2>
+  <p>Lifeboat is a general-purpose tool and is not directed at children under 13.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the updated version will be posted here with a new date below.
+  Material changes to what Lifeboat stores or sends would also appear in the extension's
+  update notes.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about privacy, or anything else: <a href="mailto:support@lucency.dev">support@lucency.dev</a></p>
+
+  <footer>
+    Lifeboat is made by <a href="https://lucency.dev">Lucency</a>. Last updated 11 September 2026.
+    <a href="lifeboat/">About Lifeboat</a> · <a href="support.html">Help &amp; support</a>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dram — Privacy Policy</title>
+  <style>
+    :root { --copper:#9C5B2E; --copper2:#C0814A; --cream:#F7F2E7; --ink:#2b2420; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--cream); color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Arial, sans-serif;
+      line-height: 1.6;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+    header { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+    header img { width: 44px; height: 44px; border-radius: 10px; }
+    h1 { font-size: 28px; margin: 0; color: var(--copper); font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; }
+    .eff { color: var(--copper2); font-size: 14px; margin: 0 0 28px; }
+    h2 { color: var(--copper); font-size: 20px; margin: 32px 0 8px; font-family: 'Playfair Display', Georgia, serif; }
+    .lead {
+      background: #fff; border: 1px solid #e9e0cd; border-left: 4px solid var(--copper2);
+      border-radius: 8px; padding: 16px 18px; font-size: 16px;
+    }
+    ul { padding-left: 22px; }
+    a { color: var(--copper2); }
+    code { background: #efe7d5; padding: 1px 5px; border-radius: 4px; font-size: 90%; }
+    footer { margin-top: 40px; color: #7a6b5d; font-size: 13px; border-top: 1px solid #e3dac8; padding-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="./icon-128.png" alt="Dram">
+      <h1>Dram — Privacy Policy</h1>
+    </header>
+    <p class="eff">Effective date: 11 June 2026</p>
+
+    <p class="lead">
+      Dram does not collect, transmit, sell, or share any of your data.
+      Everything the extension stores stays <strong>locally in your own browser</strong>,
+      on your device. There are no servers, no accounts, no analytics, and no tracking.
+    </p>
+
+    <h2>What Dram handles, and where it stays</h2>
+    <p>
+      When you visit a web page, Dram reads the page's text <strong>in your
+      browser</strong> to detect whether a cocktail recipe is present. This
+      processing happens entirely on your device and the page content is
+      <strong>not sent anywhere</strong>. If no recipe is found, nothing is kept.
+    </p>
+    <p>When you choose to save a recipe or use a feature, the following is stored
+      <strong>locally</strong> using the browser's <code>chrome.storage.local</code>
+      API (on your device only):</p>
+    <ul>
+      <li>Saved recipes and their ingredients</li>
+      <li>Your settings (e.g. metric/imperial preference, default base measure)</li>
+      <li>Your Bar — the bottles you mark as owned in "My Bar"</li>
+      <li>Your Pro license key, if you have activated one</li>
+    </ul>
+    <p>You can view, edit, and delete any of this from within the extension at any time.</p>
+
+    <h2>What Dram does NOT do</h2>
+    <ul>
+      <li>It does <strong>not</strong> send your data to us or to any third party.</li>
+      <li>It has <strong>no</strong> analytics, telemetry, tracking pixels, or advertising.</li>
+      <li>It requires <strong>no</strong> account and <strong>no</strong> sign-in.</li>
+      <li>It does <strong>not</strong> read or store data from pages where no recipe is detected.</li>
+    </ul>
+
+    <h2>Permissions, explained</h2>
+    <ul>
+      <li><strong>Host access (all sites):</strong> required so the extension can read the
+        text of the page you are currently viewing in order to detect a cocktail recipe.
+        Detection runs locally; no page content leaves your device.</li>
+      <li><strong>Storage:</strong> used to save your recipes, your bar, settings, and
+        preferences locally in your browser.</li>
+    </ul>
+
+    <h2>Pro licenses and external links</h2>
+    <p>
+      The free version is fully usable. The optional one-time <strong>Pro</strong> upgrade and
+      any tips ("buy the developer a martini") are both handled through Payhip. These links
+      only open when <strong>you</strong> click them, in a normal browser tab, and Payhip's own
+      privacy policy then applies. Your Pro license key is validated
+      <strong>locally inside the extension</strong> — activating Pro does not contact any
+      server or send us any information.
+    </p>
+
+    <h2>Data retention and deletion</h2>
+    <p>
+      Because all data is stored locally, <strong>you</strong> control it entirely. Removing a
+      saved recipe deletes it. Using "Clear all saved recipes" in Settings, or uninstalling
+      the extension, removes all stored data. We keep no copies because we never receive any.
+    </p>
+
+    <h2>Age</h2>
+    <p>Dram is a tool for cocktail enthusiasts of legal drinking age and is not directed at
+      children. Please enjoy responsibly.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy changes, the updated version will be published at this URL and the
+      effective date above will be revised.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about privacy? Contact: <strong>fermentory@proton.me</strong></p>
+
+    <footer>Dram — cocktail recipe assistant. Detect, scale, batch, and track your bar — all
+      on your device.</footer>
+  </div>
+</body>
+</html>

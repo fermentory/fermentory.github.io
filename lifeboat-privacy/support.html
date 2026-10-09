@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lifeboat — Help &amp; Support</title>
+<style>
+  :root { --paper:#F6E7C8; --card:#FFFFFF; --ink:#2A1F1A; --rust:#9C2F1E;
+          --teal:#1A6B66; --meta:#6B5B49; --tomato:#C0392B; --mustard:#E8A33D; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink);
+         font-family:"Archivo","Segoe UI",system-ui,sans-serif; line-height:1.6;
+         padding:48px 24px; }
+  .wrap { max-width:70ch; margin:0 auto; }
+  header { background:var(--tomato); color:#FBEFD9; border:2px solid var(--ink);
+           padding:24px; margin-bottom:32px; display:flex; align-items:center; gap:16px; }
+  .ring { width:44px; height:44px; border-radius:50%; background:#FBEFD9;
+          border:2px solid var(--ink); display:grid; place-items:center;
+          flex:0 0 auto; transform:rotate(-8deg); }
+  h1 { font-size:1.75rem; letter-spacing:0.04em; font-weight:700; }
+  .sub { font-size:0.75rem; letter-spacing:0.14em; text-transform:uppercase; }
+  h2 { font-size:1.125rem; color:var(--rust); margin:32px 0 8px; }
+  p, li { margin-bottom:8px; }
+  ul { padding-left:24px; }
+  .card { background:var(--card); border:2px solid var(--ink); padding:16px 24px; margin:24px 0; }
+  .card p:last-child { margin-bottom:0; }
+  strong { color:var(--rust); }
+  a { color:var(--teal); transition:color 200ms ease-in-out; }
+  a:hover { color:var(--rust); }
+  a:focus-visible { outline:3px solid currentColor; outline-offset:4px; }
+  .mail { display:inline-block; background:var(--teal); color:#F2FBF9;
+          border:2px solid var(--ink); padding:12px 16px; font-weight:700;
+          letter-spacing:0.04em; text-transform:uppercase; font-size:0.875rem;
+          text-decoration:none; margin-top:8px;
+          transition:background-color 200ms ease-in-out, color 200ms ease-in-out; }
+  .mail:hover { background:#16605B; color:#F2FBF9; }
+  footer { margin-top:48px; font-size:0.875rem; color:var(--meta);
+           border-top:2px solid var(--ink); padding-top:16px; }
+  @media (prefers-reduced-motion:reduce) { a, .mail { transition:none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="ring" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D9442C">
+        <circle cx="12" cy="12" r="9" stroke-width="1.5"/>
+        <circle cx="12" cy="12" r="4.3" stroke-width="1.5"/>
+        <g stroke-width="4.4">
+          <path d="M8.45 6.32a6.7 6.7 0 0 1 7.1 0"/>
+          <path d="M17.68 8.45a6.7 6.7 0 0 1 0 7.1"/>
+          <path d="M15.55 17.68a6.7 6.7 0 0 1-7.1 0"/>
+          <path d="M6.32 15.55a6.7 6.7 0 0 1 0-7.1"/>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <h1>Lifeboat</h1>
+      <p class="sub">Help &amp; Support</p>
+    </div>
+  </header>
+
+  <div class="card">
+    <p><strong>Something wrong, or just a question?</strong> Email
+    <a href="mailto:support@lucency.dev">support@lucency.dev</a> and a human
+    (Róbert) will read it. Telling me the website it happened on helps a lot.</p>
+    <a class="mail" href="mailto:support@lucency.dev?subject=Lifeboat">Email support</a>
+  </div>
+
+  <h2>Try Lifeboat before you need it</h2>
+  <p>In version 1.0.2, open Lifeboat in Chrome's toolbar and choose <strong>Test Lifeboat</strong>.
+  The local test uses a disposable sample and the same save-and-restore code as a real page.
+  It deletes the saved sample when the test finishes. It does not count as a real rescue.</p>
+
+  <h2>Lifeboat didn't save my text</h2>
+  <ul>
+    <li><strong>Under 25 characters isn't saved.</strong> That floor stops Lifeboat from hoarding every search box and one-word reply. Pro lets you change it, anywhere from 1 to 200 characters.</li>
+    <li><strong>Give it about two seconds.</strong> Lifeboat saves when you pause typing, when you leave the field, and when you leave the page.</li>
+    <li><strong>Was the site paused?</strong> Open Lifeboat and check whether the button in the top right says "Resume".</li>
+    <li><strong>Was the tab already open when you installed?</strong> Freshly installed extensions can't reach tabs opened beforehand. Lifeboat tries to inject itself, but a reload settles it.</li>
+    <li><strong>Password fields and recognised sensitive fields are excluded.</strong> These exclusions cannot be switched off. Sensitive text pasted into an ordinary comment box can still be saved; pause the site if you do not want it kept.</li>
+    <li><strong>Install before you need a rescue.</strong> Lifeboat cannot recover text lost before installation. Chrome's protected pages and unsupported editors cannot be saved.</li>
+  </ul>
+
+  <h2>The rescue card didn't appear</h2>
+  <p>It only appears when Lifeboat is confident something was genuinely lost:
+  the text was saved, it is under a day old, you weren't the
+  one deleting it, and you hadn't dismissed the card for that field in the last
+  24 hours. Sending a message in a chat box is understood as sending, not losing,
+  so no card appears.</p>
+  <p><strong>Still on 1.0.1?</strong> That version also required 25 words before showing
+  the card. Version 1.0.2 removes that extra limit, so shorter saved drafts qualify too.</p>
+  <p>Your text is still saved either way — open Lifeboat from the toolbar and
+  press Restore there.</p>
+
+  <h2>Restore put my text on the clipboard instead</h2>
+  <p>That happens when the original field no longer exists on the page — the site
+  changed, or you're on a different page now. Paste it wherever you need it.</p>
+
+  <h2>I bought Pro and the boats are still locked</h2>
+  <ul>
+    <li>Paste the key into the drawer (the ⚙ icon), then press Activate.</li>
+    <li>Keys work on up to 5 browsers. If you've hit that, email support and I'll reset it.</li>
+    <li>Lost your key? Email support from the address you bought with.</li>
+  </ul>
+
+  <h2>How do I delete everything Lifeboat saved?</h2>
+  <p>In 1.0.2, choose <strong>Forget draft</strong> on a card to remove that draft and
+  its saved versions, or open earlier versions and forget one. To clear the current
+  site, open settings and choose <strong>Clear saved text on this site</strong>, then
+  confirm. Undo is available for 15 seconds while the popup and Chrome stay open.</p>
+  <p>Deleting saved text does not pause new saving or remove Pro. Press Pause to stop
+  saving new writing on a site. To remove all sites' data, uninstall the extension.</p>
+
+  <h2>Is my typing sent anywhere?</h2>
+  <p>No. Details in the <a href="./">privacy policy</a> — short version: your text
+  never leaves your computer. Pro sends licence details to Polar when activated and
+  periodically to validate the licence, never your saved writing or page addresses.</p>
+
+  <h2>Why did Lifeboat ask for a review?</h2>
+  <p>After a real rescue, 1.0.2 shows an optional invitation inside the popup. It does
+  not open the store automatically. Choose <strong>No thanks</strong> to dismiss it
+  permanently. The test sample never triggers it.</p>
+
+  <footer>
+    Lifeboat is made by <a href="https://lucency.dev">Lucency</a>. Last updated 11 September 2026.
+    <a href="lifeboat/">About Lifeboat</a> · <a href="./">Privacy</a>
+  </footer>
+
+</div>
+</body>
+</html>

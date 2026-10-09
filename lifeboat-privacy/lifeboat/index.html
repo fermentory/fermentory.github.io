@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lifeboat is a free Chrome extension that saves the text you type on your device and helps restore it after a page wipe, crash or session timeout.">
+  <meta name="theme-color" content="#c0392b">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Lifeboat — Free Form Recovery &amp; Text Rescue for Chrome</title>
+  <link rel="canonical" href="https://fermentory.github.io/lifeboat-privacy/lifeboat/">
+  <link rel="icon" type="image/png" href="assets/icon-128.png">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="preload" href="assets/alfa-slab-one.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="sitemap" type="application/xml" href="../sitemap.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lifeboat — The page wiped it. Bring it back.">
+  <meta property="og:description" content="Free text rescue for Chrome. Saved on your device, with a short memory and no account.">
+  <meta property="og:url" content="https://fermentory.github.io/lifeboat-privacy/lifeboat/">
+  <meta property="og:image" content="https://fermentory.github.io/lifeboat-privacy/lifeboat/assets/rescue-screenshot.jpg">
+  <meta property="og:image:alt" content="Lifeboat's real rescue card beside an emptied comment field.">
+  <script src="assets/demo.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="wrap nav" aria-label="Main navigation">
+      <a class="brand" href="./" aria-label="Lifeboat home"><img src="assets/icon-128.png" width="48" height="48" alt=""><span>Lifeboat</span></a>
+      <div class="nav-links"><a href="#try-it">Try the rescue</a><a href="#privacy">Privacy</a><a href="#free-and-pro">Free &amp; Pro</a></div>
+      <a class="button button-light" href="https://chromewebstore.google.com/detail/lifeboat-form-recovery-te/cndekcdenjkpomlkgiccjlmlmhmlemcb">Add to Chrome</a>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Your text rescue kit for Chrome</p>
+        <h1 id="hero-title">The page wiped it.<br><span>Bring it back.</span></h1>
+        <p class="lede">The comment, the application, the three paragraphs you just wrote. Lifeboat saves your text on this device so a broken page doesn't have to mean starting over.</p>
+        <div class="actions"><a class="button" href="https://chromewebstore.google.com/detail/lifeboat-form-recovery-te/cndekcdenjkpomlkgiccjlmlmhmlemcb">Add Lifeboat to Chrome</a></div>
+        <p class="small">Free rescue. No account. No subscription.</p>
+        <p class="small">Install before the loss. Lifeboat can only bring back text it has already saved.</p>
+      </div>
+      <div class="simulation" id="try-it">
+        <p class="simulation-label">Interactive simulation</p>
+        <div class="demo">
+          <div class="demo-head"><strong>A comment worth keeping</strong><span id="demo-state">Sample loaded</span></div>
+          <div class="demo-body">
+            <label for="sample-comment">Sample comment · read only</label>
+            <textarea class="sample" id="sample-comment" readonly spellcheck="false" autocomplete="off" aria-describedby="demo-note">The thing nobody tells you about brew-in-a-bag is that the crush matters more than the bag. Four batches later, I finally worked out that my mill gap was the whole story.</textarea>
+            <p class="demo-status" id="demo-status" role="status" aria-live="polite" aria-atomic="true">Imagine the site clears this comment. Wipe the sample, then bring it back.</p>
+            <div id="demo-controls" hidden>
+              <button class="button button-secondary" id="wipe-sample" type="button">Wipe the sample</button>
+              <div class="rescue" id="sample-rescue" hidden>
+                <img src="assets/icon-128.png" alt="" width="32" height="32">
+                <strong>The sample is safe.</strong>
+                <button class="button" id="restore-sample" type="button">Restore sample</button>
+              </div>
+            </div>
+            <noscript><p class="small">Enable JavaScript to try this sample. The extension information and links work without it.</p></noscript>
+          </div>
+          <div class="demo-bottom">The real rescue is free.</div>
+        </div>
+        <p class="demo-note" id="demo-note">Only this sample changes, in page memory. No personal input, saved data or extension detection. <strong>Test Lifeboat</strong>, a test inside the extension, is coming in v1.0.2. For the current version, use the <a href="#check-saving">manual sample check</a>.</p>
+      </div>
+    </section>
+
+    <section class="defaults" aria-label="Free saving defaults">
+      <div class="wrap defaults-inner">
+        <div class="defaults-intro"><strong>A short memory, on purpose.</strong><p class="small">The free defaults keep it useful and tidy.</p></div>
+        <div class="default"><strong>7</strong><span>days before saved text expires</span></div>
+        <div class="default"><strong>3</strong><span>versions of each text field</span></div>
+        <div class="default"><strong>25</strong><span>characters before saving starts</span></div>
+      </div>
+    </section>
+
+    <section class="wrap section product" aria-labelledby="how-title">
+      <figure class="product-shot">
+        <img src="assets/popup-tintoy.png" alt="Lifeboat's Tin Toy popup with saved comment and post drafts, Restore and Copy controls, and a Pause control." width="360" height="451" loading="lazy">
+        <figcaption>Real Lifeboat popup. Example drafts, Tin Toy theme.</figcaption>
+      </figure>
+      <div class="stack">
+        <p class="eyebrow">Keep writing. Keep a way back.</p>
+        <h2 id="how-title">A small kit for a very familiar problem.</h2>
+        <ol class="steps">
+          <li><h3>Install, then write as usual</h3><p>Lifeboat saves text from supported comment boxes, applications and editors as you type. You don't need to copy it first.</p></li>
+          <li><h3>The page loses your draft</h3><p>A timeout, an unexpected refresh, a trip back to an empty form. When Lifeboat recognises the lost field, a rescue card offers your saved text.</p></li>
+          <li><h3>Put your words back</h3><p>Choose Restore, or open the popup to browse saved drafts and earlier versions. If the field changed, Copy gives you a way to paste the text yourself.</p></li>
+        </ol>
+        <p class="small">Lifeboat protects typed text. It doesn't track your clipboard, save uploaded files or back up an entire browser session.</p>
+      </div>
+    </section>
+
+    <section class="section privacy" id="privacy" aria-labelledby="privacy-title">
+      <div class="wrap privacy-grid">
+        <div class="privacy-lead stack">
+          <p class="eyebrow">Yes, a text saver records your typing.</p>
+          <h2 id="privacy-title">Here's exactly what stays saved.</h2>
+          <p class="lede">The text you type into supported fields stays in your Chrome profile, encrypted on your device with AES-GCM.</p>
+          <p>No draft cloud, no telemetry, no account for free rescue. You can see saved drafts, export your text, or pause saving for a site. Coming in v1.0.2: delete a draft or a site's drafts, with an undo option.</p>
+          <a class="text-link" href="../">Read the full privacy policy →</a>
+        </div>
+        <div class="privacy-list">
+          <div><h3>Some fields are excluded</h3><p>Password fields, and fields identified as payment or national-ID inputs, are excluded using their type, labels and other field information. That cannot identify every secret typed into an ordinary comment box. Pause on a site when you don't want its text saved.</p></div>
+          <div><h3>Saved text has an expiry date</h3><p>Free Lifeboat keeps up to three versions per field for seven days. A draft starts saving at 25 characters. Pro lets you change those limits.</p></div>
+          <div><h3>Pro has one outside connection</h3><p>When you activate Pro, and during periodic licence checks, Lifeboat sends your licence key and organisation/activation identifiers to Polar. It never sends your draft text.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="free-and-pro" aria-labelledby="pricing-title">
+      <div class="section-head">
+        <div><p class="eyebrow">Free rescue. Optional extras.</p><h2 id="pricing-title">Keep the kit.<br>Pick your boat.</h2></div>
+        <p>Restoring your text is free. Pro is a one-time supporter pack with four more looks and a few ways to make Lifeboat yours.</p>
+      </div>
+      <div class="pricing">
+        <section class="price-card" aria-labelledby="free-title">
+          <div class="price-title"><h3 id="free-title">Lifeboat</h3><p class="price">Free</p></div>
+          <p>The text rescue kit, ready to use.</p>
+          <ul><li>Save, restore, copy and export your text</li><li>Browse earlier versions</li><li>Draft deletion and undo, coming in v1.0.2</li><li>Pause on any site and choose the rescue card's corner</li><li>Tin Toy theme, 7 days, 3 versions, 25-character minimum</li></ul>
+          <a class="button" href="https://chromewebstore.google.com/detail/lifeboat-form-recovery-te/cndekcdenjkpomlkgiccjlmlmhmlemcb">Get free Lifeboat</a>
+        </section>
+        <section class="price-card price-card-pro" aria-labelledby="pro-title">
+          <div class="price-title"><h3 id="pro-title">Lifeboat Pro</h3><p class="price">$3.99 <span>once</span></p></div>
+          <p>Everything free, plus the supporter extras.</p>
+          <ul><li>Dinghy, Muster, Arcade and Pool Float themes</li><li>Keep drafts for 3–30 days and 1–10 versions</li><li>Set the save minimum from 1–200 characters</li><li>Private saved-and-restored counts in the Ship's Log</li></ul>
+          <a class="button button-secondary" href="https://buy.polar.sh/polar_cl_WzrvV9f8py0vrDQ9QTp2AFn72Q4O3LG23KeXr0w502m">Get the supporter pack</a>
+          <p class="small">One payment through Polar. Activate the licence key inside Lifeboat.</p>
+        </section>
+      </div>
+      <div class="theme-gallery" aria-label="The four Pro themes">
+        <figure><img src="assets/popup-dinghy.png" width="360" height="451" alt="Dinghy theme: blue header and bright orange restore buttons." loading="lazy"><figcaption>Dinghy</figcaption></figure>
+        <figure><img src="assets/popup-muster.png" width="360" height="451" alt="Muster theme: green header, stencil lettering and orange restore buttons." loading="lazy"><figcaption>Muster</figcaption></figure>
+        <figure><img src="assets/popup-arcade.png" width="360" height="451" alt="Arcade theme: dark blue, pixel lettering and yellow restore buttons." loading="lazy"><figcaption>Arcade</figcaption></figure>
+        <figure><img src="assets/popup-poolfloat.png" width="360" height="451" alt="Pool Float theme: turquoise header and rounded coral restore buttons." loading="lazy"><figcaption>Pool Float</figcaption></figure>
+      </div>
+      <p class="theme-note">Real product screenshots with example drafts. Preview the boats in the extension before buying.</p>
+    </section>
+
+    <section class="section guides-section" aria-labelledby="guides-title">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">The recovery shelf</p><h2 id="guides-title">Find your way back.</h2></div><p>What to try when the text is already gone, and what to set up for next time.</p></div>
+        <div class="guide-links">
+          <a class="guide-link" href="recover-text-after-chrome-crash/"><strong>Recover text after a Chrome crash →</strong><span>Reopen the page, check saved drafts, and understand what's recoverable.</span></a>
+          <a class="guide-link" href="session-timeout/"><strong>When a session timeout eats your form →</strong><span>What to check before rewriting, and how to protect the next draft.</span></a>
+          <a class="guide-link" href="typio-alternative/"><strong>A Typio Form Recovery alternative →</strong><span>Where Lifeboat fits, including the current Typio Reboot option.</span></a>
+          <a class="guide-link" href="lazarus-alternative/"><strong>A Lazarus Form Recovery alternative →</strong><span>Familiar text rescue for Chrome, with clear limits and local control.</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section faq" aria-labelledby="faq-title">
+      <div class="stack-tight"><p class="eyebrow">Before you install</p><h2 id="faq-title">A few fair questions.</h2></div>
+      <div>
+        <details><summary>Can it recover something I already lost?</summary><p>Only if Lifeboat was installed, active on that site, and had saved that text before the loss. Installing it now cannot recover an old unsaved draft. Start with our <a href="recover-text-after-chrome-crash/">crash recovery guide</a> for the things you can still check.</p></details>
+        <details><summary>Will it work in every text box?</summary><p>No text saver works in every editor. Lifeboat supports ordinary text fields and many rich editors, including React-controlled fields and web components. Chrome's internal pages and the Chrome Web Store cannot be captured. Check important sites with harmless sample text first; when direct restore isn't possible, try Copy in the popup.</p></details>
+        <details><summary>How do I check that it's working?</summary><p id="check-saving">In the current version, type a harmless sample paragraph into a disposable field on a site you trust. Wait a few seconds, then open Lifeboat and confirm the sample appears in the popup. Only after that, reload the disposable test page and try Restore or Copy. Keep real work out of the test.</p><p><strong>Test Lifeboat</strong>, coming in v1.0.2, will open a sample test inside the extension from the popup. The simulation on this website shows the idea but does not test your installation.</p></details>
+        <details><summary>Is this a clipboard manager?</summary><p>No. Lifeboat saves text you type into supported website fields, without needing you to copy it. It does not monitor clipboard history. Its Copy button is simply another way to get a saved draft back.</p></details>
+        <details><summary>Do I need Pro to get my words back?</summary><p>No. Saving, restoring, copying and exporting drafts are free. Pro adds themes, configurable saving limits and private rescue counts for a one-time payment.</p></details>
+      </div>
+    </section>
+    <section class="final-cta" aria-labelledby="last-title"><div class="wrap"><div><h2 id="last-title">Next draft, bring a lifeboat.</h2><p>Install before you start writing. Rescue is free.</p></div><a class="button" href="https://chromewebstore.google.com/detail/lifeboat-form-recovery-te/cndekcdenjkpomlkgiccjlmlmhmlemcb">Add Lifeboat to Chrome</a></div></section>
+  </main>
+  <footer class="site-footer"><div class="wrap footer-inner"><p>Lifeboat · A small rescue kit by <a href="https://lucency.dev/">Lucency</a></p><nav class="footer-links" aria-label="Footer"><a href="../">Privacy policy</a><a href="../support.html">Support</a><a href="mailto:support@lucency.dev">Email us</a></nav></div></footer>
+</body>
+</html>
